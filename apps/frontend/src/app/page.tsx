@@ -120,6 +120,12 @@ const [query, setQuery] = useState(urlQ);
     }
   }, [darkMode]);
 
+  const getFallbackImage = (title: string) => {
+    if (!title) return "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80";
+    const keyword = encodeURIComponent(title.split(' ').slice(0, 2).join(','));
+    return `https://loremflickr.com/300/300/${keyword}`;
+  };
+
   const loadHistory = async () => {
     try {
       const res = await fetch(API_BASE_URL + '/api/search/history');
@@ -275,7 +281,7 @@ const [query, setQuery] = useState(urlQ);
       <div className="flex-1 flex flex-col min-w-0">
         
         {/* 2. Top Header Bar - E-commerce Style */}
-        <header className="sticky top-0 z-30 h-20 border-b border-slate-200 dark:border-slate-800 glass px-8 flex flex-col md:flex-row items-center justify-between shadow-sm">
+        <header className="sticky top-0 z-30 py-4 md:py-0 md:h-20 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-[#090d16]/90 backdrop-blur-md px-4 md:px-8 flex flex-wrap md:flex-nowrap items-center justify-between shadow-sm">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-orange-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-500/25">
@@ -285,8 +291,8 @@ const [query, setQuery] = useState(urlQ);
           </div>
 
           {/* Central Search Bar */}
-          <div className="flex flex-1 w-full md:max-w-2xl mx-0 md:mx-8">
-            <div className="flex flex-col md:flex-row w-full bg-slate-100 dark:bg-slate-900/50 rounded-3xl md:rounded-full border border-slate-200 dark:border-slate-700 overflow-hidden shadow-inner focus-within:ring-2 focus-within:ring-orange-500/50 transition-all">
+          <div className="flex w-full md:flex-1 md:max-w-2xl md:mx-8 order-3 md:order-none mt-4 md:mt-0">
+            <div className="flex flex-col md:flex-row w-full bg-slate-100 dark:bg-slate-900/50 rounded-2xl md:rounded-full border border-slate-200 dark:border-slate-700 overflow-hidden shadow-inner focus-within:ring-2 focus-within:ring-orange-500/50 transition-all">
               <div className="flex-1 flex items-center px-4 relative">
                 <Search className="h-5 w-5 text-slate-400 shrink-0 mr-2" />
                 <input
@@ -336,8 +342,8 @@ const [query, setQuery] = useState(urlQ);
                   </div>
                 )}
               </div>
-              <div className="h-6 w-px bg-slate-300 dark:bg-slate-700 my-auto"></div>
-              <div className="flex items-center px-4 w-48">
+              <div className="h-px md:h-6 w-full md:w-px bg-slate-200 dark:bg-slate-700 my-0 md:my-auto"></div>
+              <div className="flex items-center px-4 md:w-48">
                 <MapPin className="h-5 w-5 text-slate-400 shrink-0 mr-2" />
                 <input
                   type="text"
@@ -351,7 +357,7 @@ const [query, setQuery] = useState(urlQ);
               <button
                 onClick={() => handleSearch()}
                 disabled={loading}
-                className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 md:py-0 font-bold transition-colors flex items-center justify-center rounded-b-3xl md:rounded-l-none md:rounded-r-full"
+                className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 md:py-0 font-bold transition-colors flex items-center justify-center"
               >
                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Search'}
               </button>
@@ -362,7 +368,7 @@ const [query, setQuery] = useState(urlQ);
 
 
           {/* Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 order-2 md:order-none">
             <Link
               href="/register"
               className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/30 dark:hover:bg-orange-900/50 text-orange-700 dark:text-orange-300 text-sm font-bold rounded-full transition"
@@ -386,7 +392,7 @@ const [query, setQuery] = useState(urlQ);
           
           {/* AI Swarm Assistant Popup */}
           {activeTab === 'AI Swarm Assistant' && (
-            <div className="fixed right-6 bottom-24 w-[400px] max-h-[70vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
+            <div className="fixed right-4 md:right-6 bottom-24 w-[calc(100vw-2rem)] md:w-[400px] max-h-[70vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
               <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#0f172a]">
                 <h2 className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <Bot className="h-5 w-5 text-orange-500" />
@@ -484,7 +490,7 @@ const [query, setQuery] = useState(urlQ);
 
           {/* For You Popup */}
           {activeTab === 'For You' && (
-            <div className="fixed right-6 bottom-24 w-[450px] max-h-[75vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
+            <div className="fixed right-4 md:right-6 bottom-24 w-[calc(100vw-2rem)] md:w-[450px] max-h-[75vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
               <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#0f172a]">
                 <h2 className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-orange-500" />
@@ -608,7 +614,7 @@ const [query, setQuery] = useState(urlQ);
                       className="group bg-orange-50/50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-800 rounded-3xl p-6 flex gap-6 cursor-pointer hover:shadow-lg transition-all"
                     >
                       <div className="h-32 w-32 shrink-0 bg-white dark:bg-slate-900 rounded-2xl p-2 border border-slate-100 dark:border-slate-800 flex items-center justify-center overflow-hidden relative">
-                        <img src={recommendations.best_overall.images?.[0] || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80"} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
+                        <img src={recommendations.best_overall.images?.[0] || getFallbackImage(recommendations.best_overall.title)} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
                         <span className="absolute top-2 left-2 bg-orange-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Top Pick</span>
                       </div>
                       <div className="flex flex-col justify-center">
@@ -632,7 +638,7 @@ const [query, setQuery] = useState(urlQ);
                         className="group bg-orange-50/50 dark:bg-orange-900/10 border border-orange-100 dark:border-orange-800 rounded-3xl p-6 flex gap-6 cursor-pointer hover:shadow-lg transition-all"
                       >
                         <div className="h-32 w-32 shrink-0 bg-white dark:bg-slate-900 rounded-2xl p-2 border border-slate-100 dark:border-slate-800 flex items-center justify-center overflow-hidden relative">
-                          <img src={recommendations.best_local.images?.[0] || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80"} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
+                          <img src={recommendations.best_local.images?.[0] || getFallbackImage(recommendations.best_local.title)} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
                           <span className="absolute top-2 left-2 bg-orange-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Nearest</span>
                         </div>
                         <div className="flex flex-col justify-center">
@@ -676,7 +682,7 @@ const [query, setQuery] = useState(urlQ);
                         {/* Image Header */}
                         <div className="aspect-square bg-slate-50 dark:bg-slate-800/50 p-6 relative flex items-center justify-center cursor-pointer" onClick={() => setSelectedProduct(product)}>
                           <img 
-                            src={product.images?.[0] || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80"}
+                            src={product.images?.[0] || getFallbackImage(product.title)}
                             alt={product.title}
                             className="object-contain h-full w-full mix-blend-multiply dark:mix-blend-normal group-hover:scale-110 transition-transform duration-500"
                           />
@@ -759,7 +765,7 @@ const [query, setQuery] = useState(urlQ);
                 <div className="space-y-4">
                   <div className="aspect-square bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 relative flex items-center justify-center">
                     <img 
-                      src={selectedProduct.images?.[0] || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80"}
+                      src={selectedProduct.images?.[0] || getFallbackImage(selectedProduct.title)}
                       alt={selectedProduct.title}
                       className="object-cover w-full h-full"
                     />
