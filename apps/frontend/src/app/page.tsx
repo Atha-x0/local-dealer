@@ -52,6 +52,7 @@ const [query, setQuery] = useState(urlQ);
   const [recommendations, setRecommendations] = useState<any>({});
   const [dealAnalysis, setDealAnalysis] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [isWakingUp, setIsWakingUp] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
@@ -169,6 +170,8 @@ const [query, setQuery] = useState(urlQ);
     }
     
     setLoading(true);
+    setIsWakingUp(false);
+    const wakeUpTimer = setTimeout(() => setIsWakingUp(true), 4000);
     let currentResults: any[] = [];
     
     // 1. Fetch Cached Data (Old Results)
@@ -217,7 +220,9 @@ const [query, setQuery] = useState(urlQ);
     } catch (err) {
       console.error(err);
     } finally {
+      clearTimeout(wakeUpTimer);
       setLoading(false);
+      setIsWakingUp(false);
     }
   };
 
