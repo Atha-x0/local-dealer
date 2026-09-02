@@ -392,7 +392,7 @@ const [query, setQuery] = useState(urlQ);
           
           {/* AI Swarm Assistant Popup */}
           {activeTab === 'AI Swarm Assistant' && (
-            <div className="fixed right-4 md:right-6 bottom-24 w-[calc(100vw-2rem)] md:w-[400px] max-h-[70vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
+            <div className="fixed right-4 md:right-6 bottom-[140px] md:bottom-36 w-[calc(100vw-2rem)] md:w-[400px] max-h-[calc(100vh-160px)] md:max-h-[70vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
               <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#0f172a]">
                 <h2 className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <Bot className="h-5 w-5 text-orange-500" />
@@ -490,7 +490,7 @@ const [query, setQuery] = useState(urlQ);
 
           {/* For You Popup */}
           {activeTab === 'For You' && (
-            <div className="fixed right-4 md:right-6 bottom-24 w-[calc(100vw-2rem)] md:w-[450px] max-h-[75vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
+            <div className="fixed right-4 md:right-6 bottom-[140px] md:bottom-36 w-[calc(100vw-2rem)] md:w-[450px] max-h-[calc(100vh-160px)] md:max-h-[75vh] bg-white dark:bg-[#0f172a] shadow-2xl shadow-orange-500/20 border border-slate-200 dark:border-slate-800 rounded-3xl z-50 flex flex-col overflow-hidden animate-in slide-in-from-right-8 fade-in duration-300">
               <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#0f172a]">
                 <h2 className="text-base font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-orange-500" />
@@ -968,7 +968,7 @@ const [query, setQuery] = useState(urlQ);
             For You
           </span>
           <button 
-            onClick={() => setActiveTab('For You')}
+            onClick={() => setActiveTab(activeTab === 'For You' ? 'Dashboard' : 'For You')}
             className={"h-12 w-12 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 " + (activeTab === 'For You' ? 'bg-orange-600 text-white' : 'bg-white dark:bg-slate-800 text-orange-500 border border-slate-200 dark:border-slate-700')}
           >
             <Sparkles className="h-5 w-5" />
@@ -981,7 +981,7 @@ const [query, setQuery] = useState(urlQ);
             AI Swarm Assistant
           </span>
           <button 
-            onClick={() => setActiveTab('AI Swarm Assistant')}
+            onClick={() => setActiveTab(activeTab === 'AI Swarm Assistant' ? 'Dashboard' : 'AI Swarm Assistant')}
             className={"h-12 w-12 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 " + (activeTab === 'AI Swarm Assistant' ? 'bg-orange-600 text-white' : 'bg-white dark:bg-slate-800 text-orange-500 border border-slate-200 dark:border-slate-700')}
           >
             <Bot className="h-5 w-5" />
