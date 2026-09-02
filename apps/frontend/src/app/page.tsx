@@ -617,16 +617,16 @@ const [query, setQuery] = useState(urlQ);
                         <img src={recommendations.best_overall.images?.[0] || getFallbackImage(recommendations.best_overall.title)} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
                         <span className="absolute top-2 left-2 bg-orange-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Top Pick</span>
                       </div>
-                      <div className="flex flex-col justify-center">
-                        <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
+                      <div className="flex flex-col justify-center min-w-0">
+                        <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors truncate">
                           {recommendations.best_overall.title}
                         </h4>
                         <span className="text-base font-bold text-orange-600 dark:text-orange-400 mt-2 truncate">
                           {formatPrice(recommendations.best_overall)}
                         </span>
-                        <div className="mt-3 flex gap-2 text-xs">
-                          <span className="px-3 py-1 bg-white dark:bg-slate-800 rounded-full font-semibold border border-slate-200 dark:border-slate-700">{recommendations.best_overall.brand}</span>
-                          <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full font-bold">Verified Stock</span>
+                        <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                          <span className="px-3 py-1 bg-white dark:bg-slate-800 rounded-full font-semibold border border-slate-200 dark:border-slate-700 truncate max-w-full">{recommendations.best_overall.brand}</span>
+                          <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full font-bold whitespace-nowrap">Verified Stock</span>
                         </div>
                       </div>
                     </div>
@@ -641,16 +641,16 @@ const [query, setQuery] = useState(urlQ);
                           <img src={recommendations.best_local.images?.[0] || getFallbackImage(recommendations.best_local.title)} alt="" className="object-cover h-full w-full rounded-xl mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform" />
                           <span className="absolute top-2 left-2 bg-orange-600 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full">Nearest</span>
                         </div>
-                        <div className="flex flex-col justify-center">
-                          <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors">
+                        <div className="flex flex-col justify-center min-w-0">
+                          <h4 className="text-lg font-black text-slate-900 dark:text-white leading-tight group-hover:text-orange-600 transition-colors truncate">
                             {recommendations.best_local.title}
                           </h4>
                           <span className="text-base font-bold text-orange-600 dark:text-orange-400 mt-2 truncate">
                             {formatPrice(recommendations.best_local)}
                           </span>
-                          <div className="mt-3 flex gap-2 text-xs">
-                            <span className="px-3 py-1 bg-white dark:bg-slate-800 rounded-full font-semibold border border-slate-200 dark:border-slate-700 flex items-center gap-1"><MapPin className="h-3 w-3"/> {recommendations.best_local.metadata_json?.distance_miles ? ((recommendations.best_local.metadata_json.distance_miles * 1.60934).toFixed(1) + ' km') : 'Local'}</span>
-                            <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full font-bold">In Store Today</span>
+                          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                            <span className="px-3 py-1 bg-white dark:bg-slate-800 rounded-full font-semibold border border-slate-200 dark:border-slate-700 flex items-center gap-1 truncate max-w-full"><MapPin className="h-3 w-3 shrink-0"/> <span className="truncate">{recommendations.best_local.metadata_json?.distance_miles ? ((recommendations.best_local.metadata_json.distance_miles * 1.60934).toFixed(1) + ' km') : 'Local'}</span></span>
+                            <span className="px-3 py-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full font-bold whitespace-nowrap">In Store Today</span>
                           </div>
                         </div>
                       </div>
