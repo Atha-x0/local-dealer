@@ -18,11 +18,7 @@ class ConfigurableRankingEngine:
         if not products:
             return []
             
-        from packages.embeddings.chroma_service import ChromaDBService
         import uuid
-        
-        # Prepare for semantic search
-        chroma = ChromaDBService()
         raw_query = query_info.product_concept.lower()
         
         # Build document strings and ids
@@ -41,8 +37,16 @@ class ConfigurableRankingEngine:
                 prod.metadata_json = {}
             prod.metadata_json["_temp_id"] = prod_id
 
-        # Get semantic similarity scores
-        semantic_scores = chroma.rank_in_memory(raw_query, documents, ids)
+        # Calculate word overlap similarity instead of expensive ChromaDB in-memory ephemeral clients
+        semantic_scores = {}
+        query_words = set(raw_query.lower().split())
+        for doc_id, doc_text in zip(ids, documents):
+            if not query_words:
+                semantic_scores[doc_id] = 0.0
+                continue
+            doc_words = set(doc_text.lower().split())
+            intersection = query_words.intersection(doc_words)
+            semantic_scores[doc_id] = len(intersection) / len(query_words)
 
         scored_products = []
         for prod in products:
